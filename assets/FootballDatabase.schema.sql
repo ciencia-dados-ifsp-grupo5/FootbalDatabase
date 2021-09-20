@@ -54,8 +54,8 @@ CREATE TABLE `game` (
   `PSCA` FLOAT,
   PRIMARY KEY (`gameID`),
   FOREIGN KEY (`homeTeamID`) REFERENCES `team`(`teamID`),
-  FOREIGN KEY (`awayTeamID`) REFERENCES `team`(`teamID`),
-  FOREIGN KEY (`leagueID`) REFERENCES `league`(`leagueID`)
+  FOREIGN KEY (`leagueID`) REFERENCES `league`(`leagueID`),
+  FOREIGN KEY (`awayTeamID`) REFERENCES `team`(`teamID`)
 );
 
 CREATE TABLE `appearance` (
@@ -79,11 +79,9 @@ CREATE TABLE `appearance` (
   `substituteOut` INT,
   `leagueID` INT,
   PRIMARY KEY (`gameID`, `playerID`, `leagueID`),
-  FOREIGN KEY (`gameID`) REFERENCES `game`(`gameID`),
   FOREIGN KEY (`playerID`) REFERENCES `player`(`playerID`),
-  FOREIGN KEY (`leagueID`) REFERENCES `league`(`leagueID`),
-  FOREIGN KEY (`substituteIn`) REFERENCES `player`(`playerID`),
-  FOREIGN KEY (`substituteOut`) REFERENCES `player`(`playerID`)
+  FOREIGN KEY (`gameID`) REFERENCES `game`(`gameID`),
+  FOREIGN KEY (`leagueID`) REFERENCES `league`(`leagueID`)
 );
 
 CREATE TABLE `teamstat` (
@@ -104,12 +102,11 @@ CREATE TABLE `teamstat` (
   `redCards` INT,
   `results` CHAR,
   PRIMARY KEY (`gameID`, `teamID`),
-  FOREIGN KEY (`gameID`) REFERENCES `game`(`gameID`),
-  FOREIGN KEY (`teamID`) REFERENCES `team`(`teamID`)
+  FOREIGN KEY (`teamID`) REFERENCES `team`(`teamID`),
+  FOREIGN KEY (`gameID`) REFERENCES `game`(`gameID`)
 );
 
 CREATE TABLE `shot` (
-  `shotID` INT,
   `gameID` INT,
   `shooterID` INT,
   `assisterID` INT,
@@ -121,8 +118,7 @@ CREATE TABLE `shot` (
   `xGoal` FLOAT,
   `positionX` FLOAT,
   `positionY` FLOAT,
-  PRIMARY KEY (`shotID`),
+  FOREIGN KEY (`assisterID`) REFERENCES `player`(`playerID`),
   FOREIGN KEY (`gameID`) REFERENCES `game`(`gameID`),
-  FOREIGN KEY (`shooterID`) REFERENCES `player`(`playerID`),
-  FOREIGN KEY (`assisterID`) REFERENCES `player`(`playerID`)
+  FOREIGN KEY (`shooterID`) REFERENCES `player`(`playerID`)
 );
