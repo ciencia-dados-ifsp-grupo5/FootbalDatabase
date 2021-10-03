@@ -73,12 +73,12 @@ CREATE TABLE `appearance` (
   `position` TEXT,
   `positionOrder` INT,
   `yellowCard` INT,
-  `redCards` INT,
+  `redCard` INT,
   `time` INT,
   `substituteIn` INT,
   `substituteOut` INT,
   `leagueID` INT,
-  PRIMARY KEY (`gameID`, `playerID`, `leagueID`),
+  PRIMARY KEY (`gameID`, `playerID`),
   FOREIGN KEY (`playerID`) REFERENCES `player`(`playerID`),
   FOREIGN KEY (`gameID`) REFERENCES `game`(`gameID`),
   FOREIGN KEY (`leagueID`) REFERENCES `league`(`leagueID`)
@@ -100,7 +100,7 @@ CREATE TABLE `teamstat` (
   `corners` INT,
   `yellowCards` INT,
   `redCards` INT,
-  `results` CHAR,
+  `result` CHAR,
   PRIMARY KEY (`gameID`, `teamID`),
   FOREIGN KEY (`teamID`) REFERENCES `team`(`teamID`),
   FOREIGN KEY (`gameID`) REFERENCES `game`(`gameID`)
@@ -119,6 +119,7 @@ CREATE TABLE `shot` (
   `positionX` FLOAT,
   `positionY` FLOAT,
   FOREIGN KEY (`assisterID`) REFERENCES `player`(`playerID`),
-  FOREIGN KEY (`gameID`) REFERENCES `game`(`gameID`),
-  FOREIGN KEY (`shooterID`) REFERENCES `player`(`playerID`)
+  FOREIGN KEY (`shooterID`) REFERENCES `player`(`playerID`),
+  FOREIGN KEY (`gameID`) REFERENCES `game`(`gameID`)
 );
+
